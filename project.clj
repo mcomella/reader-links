@@ -85,12 +85,12 @@
   :doo {:build "test"}
 
   :profiles {:dev
-             {:dependencies [[figwheel "0.5.3-2"]
-                             [figwheel-sidecar "0.5.3-2"]
+             {:dependencies [[figwheel "0.5.2"]
+                             [figwheel-sidecar "0.5.2"]
                              [com.cemerick/piggieback "0.2.1"]
                              [org.clojure/tools.nrepl "0.2.12"]]
 
-              :plugins [[lein-figwheel "0.5.3-2"]
+              :plugins [[lein-figwheel "0.5.2"]
                         [lein-doo "0.1.6"]]
 
               :source-paths ["dev"]
