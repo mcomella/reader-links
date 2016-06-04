@@ -9,17 +9,15 @@
             [ring.adapter.jetty :refer [run-jetty]])
   (:gen-class))
 
-(def path "https://en.wikipedia.org/wiki/%EC%95%84%EC%9D%B4%EC%9C%A0")
-
 (defroutes routes
   (GET "/" _
     {:status 200
      :headers {"Content-Type" "text/html; charset=utf-8"}
      :body (io/input-stream (io/resource "public/index.html"))})
-  (GET "/slurp" []
+  (GET "/slurp" [url]
     {:status 200
      :headers {"Content-Type" "text/xml; charset=utf-8"}
-     :body (slurp path)})
+     :body (slurp url)})
   (resources "/"))
 
 (def http-handler
