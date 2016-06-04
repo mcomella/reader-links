@@ -1,16 +1,20 @@
 (ns reader-links.core
-  (:require [reagent.core :as r]))
+  (:require [reagent.core :as r]
+            [ajax.core :refer [GET]]))
 
 (enable-console-print!)
 
-(defn on-input-submit [e & _]
+(def slurp-url "/slurp")
+
+(defn on-url-submit [url e]
   (.preventDefault e)
-  (prn _))
+  (let [site-contents (GET slurp-url {:params {:url url}})]
+    (prn site-contents)))
 
 (defn url-input [value]
   [:div
    [:form {:className "url-input"
-           :onSubmit on-input-submit}
+           :onSubmit (partial on-url-submit @value)}
     [:input {:type "text"
              :value @value
              :placeholder "URL to readerify"
