@@ -1,6 +1,11 @@
-(ns reader-links.core)
+(ns reader-links.core
+  (:require [reagent.core :as r]))
 
 (enable-console-print!)
 
-(set! (.-innerHTML (js/document.getElementById "app"))
-      "<h1>Hello Chestnut!</h1>")
+(defn component []
+  [:div
+   [:p "Hello world"]])
+
+(r/render [component]
+          (.getElementById js/document "xyz-mcomella-app"))
