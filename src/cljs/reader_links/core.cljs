@@ -3,9 +3,23 @@
 
 (enable-console-print!)
 
-(defn component []
-  [:div
-   [:p "Hello world"]])
+(defonce url (r/atom ""))
 
-(r/render [component]
+(defn on-input-submit [e & _]
+  (.preventDefault e)
+  (prn _))
+
+(defn url-input []
+  [:div
+   [:form {:className "url-input"
+           :onSubmit on-input-submit}
+    [:input {:type "text"
+             :value @url
+             :placeholder "URL to readerify"
+             :on-change #(reset! url (-> % .-target .-value))
+             :size 80}]
+    [:input {:type "submit"
+             :value "Load"}]]])
+
+(r/render [url-input]
           (.getElementById js/document "xyz-mcomella-app"))
