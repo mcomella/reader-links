@@ -30,12 +30,13 @@
              :value "Load"}]]])
 
 (defn reader []
-  (let [{:keys [title content byline]} @article]
-    [:div
-     [:h2 title]
-     [:h3 byline]
-     [:div {:dangerouslySetInnerHTML
-            #js {:__html content}}]])) ; TODO: make safe.
+  (when @article
+    (let [{:keys [title content byline]} @article]
+      [:div
+       [:h2 title]
+       [:h3 byline]
+       [:div {:dangerouslySetInnerHTML
+              #js {:__html content}}]]))) ; TODO: make safe.
 
 (defn app []
   (let [url (r/atom "")]
