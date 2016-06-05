@@ -9,13 +9,11 @@
 
 (defonce article (r/atom {}))
 
-(defn err [& _] (prn "req failed " _)) ; TODO
-
 (defn on-url-submit [url e]
   (.preventDefault e)
-  (GET slurp-url {:params {:url url}
-                  :handler #(reset! article (readerify url %))
-                  :error-handler err}))
+  (readerify url
+             #(reset! article %)
+             #(prn %))) ; TODO: err
 
 (defn url-input [value]
   [:div
