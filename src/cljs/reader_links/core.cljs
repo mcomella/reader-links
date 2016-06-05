@@ -1,15 +1,24 @@
 (ns reader-links.core
-  (:require [reagent.core :as r]
+  (:require [reader-links.reader :refer [readerify]]
+            [reagent.core :as r]
             [ajax.core :refer [GET]]))
 
 (enable-console-print!)
 
 (def slurp-url "/slurp")
 
+(defonce article (r/atom nil))
+
+(defn err [& _] (prn "req failed " _)) ; TODO
+
+(defn get-reader-from-req [url res]
+  (reset! article (readerify url res)))
+
 (defn on-url-submit [url e]
   (.preventDefault e)
-  (let [site-contents (GET slurp-url {:params {:url url}})]
-    (prn site-contents)))
+  (GET slurp-url {:params {:url url}
+                  :handler (partial get-reader-from-req url)
+                  :error-handler err}))
 
 (defn url-input [value]
   [:div
@@ -23,8 +32,11 @@
     [:input {:type "submit"
              :value "Load"}]]])
 
-(defn reader [title]
-  [:div "testing"])
+(defn reader []
+  [:div
+   [:h2 "Some title"]
+   [:div {:dangerouslySetInnerHTML
+          #js {:__html (:content @article)}}]]) ; TODO: make safe.
 
 (defn app []
   (let [url (r/atom "")]
