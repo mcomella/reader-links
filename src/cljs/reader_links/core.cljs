@@ -6,8 +6,6 @@
 
 (enable-console-print!)
 
-(def slurp-url "/slurp")
-
 (defonce article (r/atom nil))
 
 (defn on-url-submit [url e]
