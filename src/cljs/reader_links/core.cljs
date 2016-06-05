@@ -7,17 +7,14 @@
 
 (def slurp-url "/slurp")
 
-(defonce article (r/atom nil))
+(defonce article (r/atom {}))
 
 (defn err [& _] (prn "req failed " _)) ; TODO
-
-(defn get-reader-from-req [url res]
-  (reset! article (readerify url res)))
 
 (defn on-url-submit [url e]
   (.preventDefault e)
   (GET slurp-url {:params {:url url}
-                  :handler (partial get-reader-from-req url)
+                  :handler #(reset! article (readerify url %))
                   :error-handler err}))
 
 (defn url-input [value]
@@ -33,10 +30,12 @@
              :value "Load"}]]])
 
 (defn reader []
-  [:div
-   [:h2 "Some title"]
-   [:div {:dangerouslySetInnerHTML
-          #js {:__html (:content @article)}}]]) ; TODO: make safe.
+  (let [{:keys [title content byline]} @article]
+    [:div
+     [:h2 title]
+     [:h3 byline]
+     [:div {:dangerouslySetInnerHTML
+            #js {:__html content}}]])) ; TODO: make safe.
 
 (defn app []
   (let [url (r/atom "")]
