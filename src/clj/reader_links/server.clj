@@ -16,7 +16,7 @@
      :body (io/input-stream (io/resource "public/index.html"))})
   (GET "/slurp" [url]
     {:status 200
-     :headers {"Content-Type" "text/xml; charset=utf-8"}
+     :headers {"Content-Type" "text/html; charset=utf-8"}
      :body (slurp url)}) ; TODO: This can do bad things like read files
   (resources "/"))
 
