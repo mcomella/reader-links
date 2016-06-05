@@ -158,6 +158,10 @@ Readability.prototype = {
     return Array.prototype.forEach.call(nodeList, fn, this);
   },
 
+  _getBody: function () {
+    return this._doc.getElementsByTagName('body').item(0);
+  },
+
   /**
    * Iterate over a NodeList, return true if any of the provided iterate
    * function calls returns true, false otherwise.
@@ -331,8 +335,9 @@ Readability.prototype = {
       styleNode.parentNode.removeChild(styleNode);
     });
 
-    if (doc.body) {
-      this._replaceBrs(doc.body);
+    var body = this._getBody();
+    if (body) {
+      this._replaceBrs(body);
     }
 
     this._forEachNode(doc.getElementsByTagName("font"), function(fontNode) {
@@ -626,7 +631,7 @@ Readability.prototype = {
     this.log("**** grabArticle ****");
     var doc = this._doc;
     var isPaging = (page !== null ? true: false);
-    page = page ? page : this._doc.body;
+    page = page ? page : this._getBody();
 
     // We can't grab an article if we don't have a page!
     if (!page) {
