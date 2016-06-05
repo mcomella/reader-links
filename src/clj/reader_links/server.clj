@@ -17,7 +17,7 @@
   (GET "/slurp" [url]
     {:status 200
      :headers {"Content-Type" "text/xml; charset=utf-8"}
-     :body (slurp url)})
+     :body (slurp url)}) ; TODO: This can do bad things like read files
   (resources "/"))
 
 (def http-handler
