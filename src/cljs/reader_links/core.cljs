@@ -29,7 +29,7 @@
 
 (defn reader []
   (let [{:keys [title content byline]} @article]
-    [:div
+    [:article
      [:h2 title]
      [:h3 byline]
      [:div {:dangerouslySetInnerHTML
@@ -51,9 +51,9 @@
         links-markup-seq (map link-node-to-markup links link-ctxt)
         links-markup (into [:ul] links-markup-seq)]
     [:div
-     [:hr]
-     [:h2 "Some links you may have missed..."]
-      links-markup]))
+     [:div#xyz-mcomella-links
+      [:h2 "Some links you may have missed..."]
+       links-markup]]))
 
 (defn app []
   (let [url (r/atom "")]
