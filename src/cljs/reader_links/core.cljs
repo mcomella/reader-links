@@ -8,6 +8,17 @@
 (enable-console-print!)
 
 (defonce article (r/atom nil))
+(defonce rich-links (r/atom nil))
+
+(defn get-rich-links [_key _atom old-state new-state]
+  (reset! rich-links [])
+  (doseq [link (dom/get-all-links (:content new-state))]
+    (readerify (.-href link)
+               #(when-let [prev @rich-links] ; TODO: core.async
+                  (when-let [article %]
+                    (reset! rich-links (conj prev article))))
+               #(prn %))))
+(add-watch article :rich-links get-rich-links)
 
 (defn on-url-submit [url e]
   (.preventDefault e)
