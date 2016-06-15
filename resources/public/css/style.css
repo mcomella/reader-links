@@ -22,3 +22,8 @@ article {
 a,a:visited < #xyz-mcomella-links {
   color: #f00;
 }
+
+.xyz-mcomella-link-node {
+  background: #fff;
+  padding: 0 8px 0 8px;
+}

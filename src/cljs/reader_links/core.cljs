@@ -50,20 +50,25 @@
      [:div {:dangerouslySetInnerHTML
             #js {:__html content}}]])) ; TODO: make safe.
 
-(defn link-node-to-markup [node ctxt]
+(defn link-node-to-markup [node ctxt rich-link]
+  (prn (keys rich-link))
   (let [title (.-innerText node)
         [before after] (str/split ctxt title)
         href (.-href node)]
-    [:li
-     [:em before]
+    [:div.xyz-mcomella-link-node
+     [:h3 (:title rich-link)]
+     [:p
+      [:em before]
       [:a {:href href} title]
-      [:em after]]))
+      [:em after]]
+     [:p (:excerpt rich-link)]]))
+     ; (:uri :title :byline :dir :content :textContent :length :excerpt)
 
 (defn links []
-  (let [{:keys [content]} @article
+  (let [{:keys [content]} @article ; TODO: rich-links make this re-render a lot
         links (dom/get-all-links content)
         link-ctxt (map dom/get-containing-sentence-from-link-node links)
-        links-markup-seq (map link-node-to-markup links link-ctxt)
+        links-markup-seq (map link-node-to-markup links link-ctxt (vals @rich-links))
         links-markup (into [:ul] links-markup-seq)]
     [:div
      [:div#xyz-mcomella-links
