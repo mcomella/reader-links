@@ -11,13 +11,17 @@
 (defonce rich-links (r/atom nil))
 
 (defn get-rich-links [_key _atom old-state new-state]
-  (reset! rich-links [])
-  (doseq [link (dom/get-all-links (:content new-state))]
-    (readerify (.-href link)
-               #(when-let [prev @rich-links] ; TODO: core.async
-                  (when-let [article %]
-                    (reset! rich-links (conj prev article))))
-               #(prn %))))
+  "Creates coll of {1 <article> 2 <article> ...} where <article> may be nil"
+  (let [links (dom/get-all-links (:content new-state))
+        i-links (map vector (range (count links)) links)]
+    (reset! rich-links (into (sorted-map)
+                             (map-indexed vector (repeat (count links) nil))))
+    (doseq [[i link] i-links]
+      (readerify (.-href link)
+                 #(when-let [prev @rich-links] ; TODO: core.async
+                    (when-let [article %]
+                      (reset! rich-links (assoc prev i article))))
+                 #(prn %)))))
 (add-watch article :rich-links get-rich-links)
 
 (defn on-url-submit [url e]
