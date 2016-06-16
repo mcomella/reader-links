@@ -57,20 +57,28 @@
         [before after] (str/split ctxt title)
         href (.-href node)]
     [:div.xyz-mcomella-link-node
-     [:h3 (:title rich-link)]
      [:p
       [:em before]
       [:a {:href href} title]
       [:em after]]
-     [:p (:excerpt rich-link)]]))
-     ; (:uri :title :byline :dir :content :textContent :length :excerpt)
+     (let [title (:title rich-link)
+           snippet (:excerpt rich-link)]
+       [:div ; TODO: rm excess div
+        (when (not-every? str/blank? [title snippet])
+          [:h4 [:u "Article preview"]])
+        [:div {:style {:padding-left 36
+                       :margin-top 0}}
+         (when (not (str/blank? title)) ; TODO: rm dupe w/ macro
+           [:p [:strong "Title: "] title])
+         (when (not (str/blank? snippet))
+           [:p [:strong "Snippet: "] snippet])]])]))
 
 (defn links []
   (let [{:keys [content]} @article ; TODO: rich-links make this re-render a lot
         links (dom/get-all-links content)
         link-ctxt (map dom/get-containing-sentence-from-link-node links)
         links-markup-seq (map link-node-to-markup links link-ctxt (vals @rich-links))
-        links-markup (into [:ul] links-markup-seq)]
+        links-markup (into [:div] links-markup-seq)]
     [:div
      [:div#xyz-mcomella-links
       [:h2 "Some links you may have missed..."]
