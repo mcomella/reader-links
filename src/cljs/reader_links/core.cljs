@@ -27,6 +27,7 @@
 
 (defn on-url-submit [url e]
   (.preventDefault e)
+  (reset! rich-links nil)
   (readerify url
              #(reset! article %)
              #(prn %))) ; TODO: err
