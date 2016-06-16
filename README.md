@@ -7,6 +7,8 @@ I won't remember the context of the article that my links came from.
 Solution: repeat article links at the end an article with additional
 context. For simplicity in implementation, this is done in reader mode.
 
+![screenshot](http://raw.githubusercontent.com/mcomella/reader-links/master/readme-res/screenshot.png)
+
 This prototype does not work across all pages (see below) but seems to
 work well for articles on:
 * http://mobile.nytimes.com
