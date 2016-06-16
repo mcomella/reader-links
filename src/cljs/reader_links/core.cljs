@@ -7,6 +7,7 @@
 
 (enable-console-print!)
 
+(defonce url (r/atom ""))
 (defonce article (r/atom nil))
 (defonce rich-links (r/atom nil))
 
@@ -30,14 +31,14 @@
              #(reset! article %)
              #(prn %))) ; TODO: err
 
-(defn url-input [value]
+(defn url-input []
   [:div
    [:form {:className "url-input"
-           :onSubmit (partial on-url-submit @value)} ; TODO: clears text
+           :onSubmit (partial on-url-submit @url)}
     [:input {:type "text"
-             :value @value
+             :value @url
              :placeholder "URL to readerify"
-             :on-change #(reset! value (-> % .-target .-value))
+             :on-change #(reset! url (-> % .-target .-value))
              :size 80}] ; TODO: in css
     [:input {:type "submit"
              :value "Load"}]]])
@@ -76,13 +77,12 @@
        links-markup]]))
 
 (defn app []
-  (let [url (r/atom "")]
-    [:div
-     [url-input url]
-     (when @article
-       [:div ; TODO: rm div w/ macro?
-        [reader]
-        [links]])]))
+  [:div
+   [url-input]
+   (when @article
+     [:div ; TODO: rm div w/ macro?
+      [reader]
+      [links]])])
 
 (r/render [app]
           (.getElementById js/document "xyz-mcomella-app"))
