@@ -58,14 +58,15 @@
         href (.-href node)
         page-title (:title rich-link)
         snippet (:excerpt rich-link)
-        host (-> rich-link :uri :host)]
+        host (-> rich-link :uri :host)
+        preview? (not-every? str/blank? [page-title snippet host])]
     [:div.xyz-mcomella-link-node
      [:p
       [:em before]
       [:a {:href href} title]
       [:em after]]
      [:div ; TODO: rm excess div
-      (when (not-every? str/blank? [page-title snippet host])
+      (when preview?
         [:h4.xyz-mcomella-preview [:u "Article preview"]])
       [:div {:style {:padding-left 36
                      :margin-top 0}}
@@ -74,7 +75,10 @@
        (when (not (str/blank? host))
          [:p.xyz-mcomella-preview [:strong "Host: "] host])
        (when (not (str/blank? snippet))
-         [:p.xyz-mcomella-preview [:strong "Snippet: "] snippet])]]]))
+         [:p.xyz-mcomella-preview [:strong "Snippet: "] snippet])
+       (when preview? ; TODO: don't repeat
+         [:p.xyz-mcomella-preview [:strong "Context Graph Rating: "]
+          (repeat (-> 3 rand-int inc) "🌟")])]]]))
 
 (defn links []
   (let [{:keys [content]} @article ; TODO: rich-links make this re-render a lot
