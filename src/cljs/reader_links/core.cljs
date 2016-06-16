@@ -56,7 +56,7 @@
   (let [title (.-innerText node)
         [before after] (str/split ctxt title)
         href (.-href node)
-        title (:title rich-link)
+        page-title (:title rich-link)
         snippet (:excerpt rich-link)
         host (-> rich-link :uri :host)]
     [:div.xyz-mcomella-link-node
@@ -65,12 +65,12 @@
       [:a {:href href} title]
       [:em after]]
      [:div ; TODO: rm excess div
-      (when (not-every? str/blank? [title snippet host])
+      (when (not-every? str/blank? [page-title snippet host])
         [:h4.xyz-mcomella-preview [:u "Article preview"]])
       [:div {:style {:padding-left 36
                      :margin-top 0}}
-       (when (not (str/blank? title)) ; TODO: rm dupe w/ macro
-         [:p.xyz-mcomella-preview [:strong "Title: "] title])
+       (when (not (str/blank? page-title)) ; TODO: rm dupe w/ macro
+         [:p.xyz-mcomella-preview [:strong "Title: "] page-title])
        (when (not (str/blank? host))
          [:p.xyz-mcomella-preview [:strong "Host: "] host])
        (when (not (str/blank? snippet))
