@@ -1,10 +1,10 @@
 # reader-links
-Problem: when reading an article, I may find links that I want to open.
+**Problem**: when reading an article, I may find links that I want to open.
 However, if I open the links now, I'll lose the
 context of the article I'm reading and if I open it in the background,
 I won't remember the context of the article that my links came from.
 
-Solution: repeat article links at the end an article with additional
+**Solution**: repeat article links at the end an article with additional
 context. For simplicity in implementation, this is done in reader mode.
 
 ![screenshot](readme-res/screenshot.png)
