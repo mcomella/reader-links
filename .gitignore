@@ -13,3 +13,6 @@
 figwheel_server.log
 pom.xml
 pom.xml.asc
+
+# presentation
+demo/*
