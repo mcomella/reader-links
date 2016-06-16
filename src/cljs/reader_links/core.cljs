@@ -52,26 +52,29 @@
             #js {:__html content}}]])) ; TODO: make safe.
 
 (defn link-node-to-markup [node ctxt rich-link]
-  (prn (keys rich-link))
+  ; (keys rich-link): (:uri :title :byline :dir :content :textContent :length :excerpt)
   (let [title (.-innerText node)
         [before after] (str/split ctxt title)
-        href (.-href node)]
+        href (.-href node)
+        title (:title rich-link)
+        snippet (:excerpt rich-link)
+        host (-> rich-link :uri :host)]
     [:div.xyz-mcomella-link-node
      [:p
       [:em before]
       [:a {:href href} title]
       [:em after]]
-     (let [title (:title rich-link)
-           snippet (:excerpt rich-link)]
-       [:div ; TODO: rm excess div
-        (when (not-every? str/blank? [title snippet])
-          [:h4 [:u "Article preview"]])
-        [:div {:style {:padding-left 36
-                       :margin-top 0}}
-         (when (not (str/blank? title)) ; TODO: rm dupe w/ macro
-           [:p [:strong "Title: "] title])
-         (when (not (str/blank? snippet))
-           [:p [:strong "Snippet: "] snippet])]])]))
+     [:div ; TODO: rm excess div
+      (when (not-every? str/blank? [title snippet host])
+        [:h4.xyz-mcomella-preview [:u "Article preview"]])
+      [:div {:style {:padding-left 36
+                     :margin-top 0}}
+       (when (not (str/blank? title)) ; TODO: rm dupe w/ macro
+         [:p.xyz-mcomella-preview [:strong "Title: "] title])
+       (when (not (str/blank? host))
+         [:p.xyz-mcomella-preview [:strong "Host: "] host])
+       (when (not (str/blank? snippet))
+         [:p.xyz-mcomella-preview [:strong "Snippet: "] snippet])]]]))
 
 (defn links []
   (let [{:keys [content]} @article ; TODO: rich-links make this re-render a lot

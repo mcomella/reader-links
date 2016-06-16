@@ -27,3 +27,8 @@ a,a:visited < #xyz-mcomella-links {
   background: #fff;
   padding: 0 8px 0 8px;
 }
+
+.xyz-mcomella-preview {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
