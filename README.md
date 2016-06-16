@@ -28,6 +28,7 @@ leading to no results.
 
 ## Development
 In a terminal:
+
     lein repl
 
 A REPL will launch and in that:
@@ -35,9 +36,12 @@ A REPL will launch and in that:
     (run)
     (browser-repl)
 
-Connect to `http://localhost:3449/`. Once you connect, the cljs repl will be
-available in your shell and the webpage should update automatically via
-figwheel.
+Connect to:
+
+    http://localhost:3449/
+
+Once you connect, the cljs repl will be available in your shell and the
+webpage should update automatically via figwheel.
 
 ### Implementation details
 If these are important to you, let me know and I'll write up some docs.
