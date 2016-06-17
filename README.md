@@ -29,11 +29,15 @@ cases correctly and may just explode
 leading to no results.
 
 ## Development
+First, install leiningen, a clojure(script) build tool:
+
+    brew install leiningen
+
 In a terminal:
 
     lein repl
 
-A REPL will launch and in that:
+This will download dependencies & start a REPL. In that:
 
     (run)
     (browser-repl)
