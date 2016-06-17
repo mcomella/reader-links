@@ -1,4 +1,6 @@
 # reader-links
+For a more comprehensive explanation, see [my blog post][blog]. Otherwise...
+
 **Problem**: when reading an article, I may find links that I want to open.
 However, if I open the links now, I'll lose the
 context of the article I'm reading and if I open it in the background,
@@ -50,3 +52,4 @@ If these are important to you, let me know and I'll write up some docs.
 Built on the [Chestnut][] lein template.
 
 [Chestnut]: https://github.com/plexus/chestnut
+[blog]: http://mcomella.xyz/blog/2016/enhancing-articles-through-hyperlinks.html
