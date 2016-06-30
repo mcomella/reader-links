@@ -5,7 +5,7 @@ const Link = React.createClass({
   render: function () {
     return (
       <div className="mcomella-xyz-link">
-        Here we put an article.
+        Here we put an article: {this.props.article.innerText}
       </div>
     );
   }
@@ -35,7 +35,7 @@ const ArticleLinks = React.createClass({
     return (
       <div className="mcomella-xyz-article-links">
         <h1>Some links you may have missed...</h1>
-        <ArticleList articles={this.state.articles}/>
+        <ArticleList articles={this.props.articles}/>
       </div>
     );
   },
