@@ -1,2 +1,5 @@
 # generated files
 data/bundle.js
+
+# lib
+node_modules/
