@@ -15,15 +15,17 @@
   ],
   "dependencies": {
     "babel-core": "^6.10.4",
+    "babel-eslint": "^6.1.0",
     "babel-loader": "^6.2.4",
     "babel-preset-react": "^6.11.1",
+    "eslint": "^2.13.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
   },
-
   "scripts": {
     "bundle": "webpack src/*.js data/bundle.js --module-bind 'js=babel-loader'",
     "bundle-watch": "webpack -w src/*.js data/bundle.js --module-bind 'js=babel-loader'",
+    "lint": "eslint src",
     "run": "npm run bundle && jpm run"
   }
 }
