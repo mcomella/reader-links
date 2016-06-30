@@ -12,5 +12,16 @@
   "license": "MIT",
   "keywords": [
     "jetpack"
-  ]
+  ],
+  "dependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.11.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  },
+  "scripts": {
+    "bundle": "webpack src/*.js data/bundle.js --module-bind 'js=babel-loader'",
+    "run": "npm run bundle && jpm run"
+  }
 }
