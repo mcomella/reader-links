@@ -1,4 +1,4 @@
-const ArticleLinks = require('./article_links.js').ArticleLinks;
+const ArticleLinks = require('./ui/article_links.js').ArticleLinks;
 const dom = require('./dom.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
