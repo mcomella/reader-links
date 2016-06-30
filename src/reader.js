@@ -1,8 +1,9 @@
-// main.js
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
+const container = document.createElement('div');
+document.body.appendChild(container);
 ReactDOM.render(
   <h1>Hello, world!</h1>,
-  document.body
+  container
 );
