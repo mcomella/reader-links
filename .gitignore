@@ -3,3 +3,6 @@ data/bundle.js
 
 # lib
 node_modules/
+
+# misc
+npm-debug.log
