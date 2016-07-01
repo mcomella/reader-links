@@ -13,6 +13,9 @@
   "keywords": [
     "jetpack"
   ],
+  "permissions": {
+    "cross-domain-content": ["https://twitter.com", "http://mcomella.xyz"]
+  },
   "dependencies": {
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.0",
