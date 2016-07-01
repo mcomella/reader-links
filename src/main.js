@@ -17,6 +17,41 @@ function render(container, articles) {
   );
 }
 
+const sentenceEndRegexStr = '\w[,.?!]\s'; // TODO: non-english
+const firstSentenceEndRegex = new Regexp(sentenceEndRegexStr);
+const lastSentenceEndRegex = new Regexp(sentenceEndRegexStr + '(?!.*' + sentenceEndRegexStr + ')'); // via http://stackoverflow.com/a/4313994
+
+function getEndOfSentenceIndexHelper(regexp, str) {
+  const index = str.search(firstSentenceEndRegex);
+  if (index < 0) {
+    return index;
+  }
+  return index + 2; // offset for word character & punctuation.
+}
+
+function getFirstEndOfSentenceIndex(str) {
+  return getEndOfSentenceIndexHelper(firstSentenceEndRegex, str);
+}
+
+function getLastEndOfSentenceIndex(str) {
+  return getEndOfSentenceIndexHelper(lastSentenceEndRegex, str);
+}
+
+function getContextForLinkNode(node) {
+  const linkTitle = node.innerText;
+  const parentNodeText = node.parentNode.innerText;
+  const [beforeLink, afterLink] = parentNodeText.split(linkTitle); // TODO: linkTitle may appear more than once.
+
+  // before
+
+  // after
+  let afterKeep;
+  const linkTitleEndIndex = getFirstEndOfSentenceIndex(linkTitle);
+  if (linkTitleEndIndex == linkTitle.length) {
+    afterKeey = '';
+  }
+}
+
 function onReaderContentReady() {
   const container = appendContainerToDocument(document);
 
