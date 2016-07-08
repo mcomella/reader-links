@@ -17,6 +17,8 @@ work well for articles on:
 * http://theguardian.com
 * http://mcomella.xyz
 
+[Try it live!](https://reader-links.herokuapp.com/)
+
 ## User experience caveats
 There are a few bugs that affect the UX:
 * Most errors are not bubbled up to the client. Only occassionally are errors
